@@ -16,9 +16,16 @@ class AlagamentoController extends Controller
      */
     public function processFile(Request $request)
     {
-        $request->validate([
-            'file' => 'required|mimes:txt|max:2048',
-        ]);
+        $request->validate(
+            [
+                'file' => 'required|mimes:txt|max:2048',
+            ],
+            [
+                'file.mimes' => 'Enviar um arquivo no formato TXT',
+                'file.required' => 'É necessário enviar um arquivo',
+                'file.max' => 'O tamanho maximo do arquivo é 2mb'
+            ]
+        );
 
         $dataFile = file($request->file->path(), FILE_IGNORE_NEW_LINES);
 
